@@ -1,0 +1,6 @@
+use_frameworks!
+target 'EasyCustomButton_Tests' do
+  pod 'EasyCustomButton', :path => '../'
+  
+  
+end
