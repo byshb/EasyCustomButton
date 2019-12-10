@@ -1,0 +1,16 @@
+PODS:
+  - EasyCustomButton (0.1.0)
+
+DEPENDENCIES:
+  - EasyCustomButton (from `../`)
+
+EXTERNAL SOURCES:
+  EasyCustomButton:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  EasyCustomButton: a053b417805fb33e9ae8b0a4f630889334d9a1bd
+
+PODFILE CHECKSUM: ee8813c9ec0d246ead40cbbb77b95f7861da60de
+
+COCOAPODS: 1.8.3

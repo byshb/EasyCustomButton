@@ -1,0 +1,6 @@
+framework module EasyCustomButton {
+  umbrella header "EasyCustomButton-umbrella.h"
+
+  export *
+  module * { export * }
+}
