@@ -7,9 +7,9 @@
 //
 import UIKit
 
-@IBDesignable class EasyCustomButton: UIButton {
+@IBDesignable open class EasyCustomButton: UIButton {
 
-    enum CustomImagePosition: Int {
+    public enum CustomImagePosition: Int {
         case top, left, bottom, right
     }
     
@@ -28,12 +28,13 @@ import UIKit
     @IBInspectable public var imagePostion: Int = 0 {
         didSet {
             self.imagePostionStyle = CustomImagePosition.init(rawValue: imagePostion) ?? .left
+            setNeedsLayout()
         }
     }
     
     private var imagePostionStyle: CustomImagePosition = .left
 
-    convenience init(imagePostionStyle: CustomImagePosition = .left,
+    public convenience init(imagePostionStyle: CustomImagePosition = .left,
                      midSpacing: CGFloat = 5,
                      title: String = "",
                      titleColor: UIColor = .black,
@@ -57,16 +58,16 @@ import UIKit
         super.init(frame: frame)
     }
     
-    required init?(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    override func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         resetInset()
     }
     
-    func resetInset() {
+    private func resetInset() {
         
         if __CGSizeEqualToSize(.zero, imageSize) {
             imageView?.sizeToFit()
@@ -90,17 +91,17 @@ import UIKit
         }
     }
     
-    override func setImage(_ image: UIImage?, for state: UIControl.State) {
+    override public func setImage(_ image: UIImage?, for state: UIControl.State) {
         super.setImage(image, for: state)
         setNeedsLayout()
     }
     
-    override func setTitle(_ title: String?, for state: UIControl.State) {
+    override public func setTitle(_ title: String?, for state: UIControl.State) {
         super.setTitle(title, for: state)
         setNeedsLayout()
     }
     
-    func layoutHorizontal(leftView: UIView?, rightView: UIView?) {
+    private func layoutHorizontal(leftView: UIView?, rightView: UIView?) {
         var leftViewFrame: CGRect = leftView?.frame ?? .zero
         var rightViewFrame: CGRect = rightView?.frame ?? .zero
         let totalWidth: CGFloat = leftViewFrame.width + self.midSpacing + rightViewFrame.width
@@ -112,7 +113,7 @@ import UIKit
         rightView?.frame = rightViewFrame
     }
     
-    func layoutVertical(upView: UIView?, downView: UIView?) {
+    private func layoutVertical(upView: UIView?, downView: UIView?) {
         var upViewFrame: CGRect = upView?.frame ?? .zero
         var downViewFrame: CGRect = downView?.frame ?? .zero
         let totalHeight: CGFloat = upViewFrame.size.height + self.midSpacing + downViewFrame.size.height
@@ -124,4 +125,5 @@ import UIKit
         downView?.frame = downViewFrame
     }
 }
+
 
