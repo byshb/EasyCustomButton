@@ -7,31 +7,33 @@
 //
 import UIKit
 
-open class EasyCustomButton: UIButton {
-    
-    public enum CustomImagePosition {
+@IBDesignable class EasyCustomButton: UIButton {
+
+    enum CustomImagePosition: Int {
         case top, left, bottom, right
     }
     
-    public var midSpacing: CGFloat = 5 {
+    @IBInspectable public var midSpacing: CGFloat = 5 {
         didSet {
             setNeedsLayout()
         }
     }
     
-    public var imageSize: CGSize = .zero {
+    @IBInspectable public var imageSize: CGSize = .zero {
         didSet {
             setNeedsLayout()
         }
     }
     
-    public var imagePostion: CustomImagePosition = .left {
+    @IBInspectable public var imagePostion: Int = 0 {
         didSet {
-            setNeedsLayout()
+            self.imagePostionStyle = CustomImagePosition.init(rawValue: imagePostion) ?? .left
         }
     }
     
-    public convenience init(imagePostion: CustomImagePosition = .left,
+    private var imagePostionStyle: CustomImagePosition = .left
+
+    convenience init(imagePostionStyle: CustomImagePosition = .left,
                      midSpacing: CGFloat = 5,
                      title: String = "",
                      titleColor: UIColor = .black,
@@ -41,7 +43,7 @@ open class EasyCustomButton: UIButton {
                      backgroundColor: UIColor = .white) {
         self.init(frame: .zero)
         self.midSpacing = midSpacing
-        self.imagePostion = imagePostion
+        self.imagePostionStyle = imagePostionStyle
         setTitle(title, for: .normal)
         setTitleColor(titleColor, for: .normal)
         titleLabel?.font = titleFont
@@ -55,16 +57,16 @@ open class EasyCustomButton: UIButton {
         super.init(frame: frame)
     }
     
-    required public init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
     
-    override public func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         resetInset()
     }
     
-    private func resetInset() {
+    func resetInset() {
         
         if __CGSizeEqualToSize(.zero, imageSize) {
             imageView?.sizeToFit()
@@ -76,7 +78,7 @@ open class EasyCustomButton: UIButton {
         }
         titleLabel?.sizeToFit()
         
-        switch imagePostion {
+        switch imagePostionStyle {
         case .top:
             layoutVertical(upView: imageView, downView: titleLabel)
         case .left:
@@ -88,17 +90,17 @@ open class EasyCustomButton: UIButton {
         }
     }
     
-    override public func setImage(_ image: UIImage?, for state: UIControl.State) {
+    override func setImage(_ image: UIImage?, for state: UIControl.State) {
         super.setImage(image, for: state)
         setNeedsLayout()
     }
     
-    override public func setTitle(_ title: String?, for state: UIControl.State) {
+    override func setTitle(_ title: String?, for state: UIControl.State) {
         super.setTitle(title, for: state)
         setNeedsLayout()
     }
     
-    private func layoutHorizontal(leftView: UIView?, rightView: UIView?) {
+    func layoutHorizontal(leftView: UIView?, rightView: UIView?) {
         var leftViewFrame: CGRect = leftView?.frame ?? .zero
         var rightViewFrame: CGRect = rightView?.frame ?? .zero
         let totalWidth: CGFloat = leftViewFrame.width + self.midSpacing + rightViewFrame.width
@@ -110,7 +112,7 @@ open class EasyCustomButton: UIButton {
         rightView?.frame = rightViewFrame
     }
     
-    private func layoutVertical(upView: UIView?, downView: UIView?) {
+    func layoutVertical(upView: UIView?, downView: UIView?) {
         var upViewFrame: CGRect = upView?.frame ?? .zero
         var downViewFrame: CGRect = downView?.frame ?? .zero
         let totalHeight: CGFloat = upViewFrame.size.height + self.midSpacing + downViewFrame.size.height

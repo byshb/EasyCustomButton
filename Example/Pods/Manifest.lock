@@ -1,5 +1,5 @@
 PODS:
-  - EasyCustomButton (0.1.0)
+  - EasyCustomButton (0.1.1)
 
 DEPENDENCIES:
   - EasyCustomButton (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  EasyCustomButton: a053b417805fb33e9ae8b0a4f630889334d9a1bd
+  EasyCustomButton: 36702ec7c73aba07dd75164104409563efa4691f
 
 PODFILE CHECKSUM: ee8813c9ec0d246ead40cbbb77b95f7861da60de
 
